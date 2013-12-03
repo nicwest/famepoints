@@ -1,31 +1,49 @@
 simple module for pulling up to date fame points and rankings
 
+
 Scrobbler(min_points=10000, max_pages=20, max_rank=30000, max_players=22000)
+
 min_points: when the scrobbler reaches this number of fame points it stops. default=10000
+
 max_pages: when the scrobbler reaches this number of pages it stops. default=20
+
 max_rank: when the scrobbler reaches this rank it stops. default=30000
+
 max_players: when the scrobbler indexes this many players it stops. default = 22000
 
+
 single_scrobble()
+
 performs a scrobble of the next page in the series regardless of settings
 
+
 scrobble()
+
 scans all players subject to init settings.
 
+
 sortrank()
+
 sorts current indexes according to famepoints (not WG rank)
 
+
 find_clan(tags=[])
+
 takes an array of clan tags (case insensitive), and returns an array of indexed players from those clans.
 
+
 sortclans()
+
 sorts clans accoring to howmany players they have in the top 10k
+
 
 find_clan_rankings()
 returns an array of clans sorted by rankings.
 
+
 Requirements:
 Python 2.7+
+
 
 Requirements (for example script):
 texttable

@@ -1,19 +1,17 @@
 __author__ = 'nic'
 from scrobbler import Scrobbler
-import math
 import texttable
-
 
 
 if __name__ == "__main__":
     scrob = Scrobbler(max_rank=12000)
     data = scrob.scrobble()
-    print 'indexed players: ', scrob.current_count, 'pages scrobbled: ', scrob.current_page
+    print 'indexed players: ', str(scrob.current_count) + "/" + str(scrob.total_count) + " (" + str(
+        round((float(scrob.current_count) / float(scrob.total_count)) * 100)) + "\%)", 'pages scrobbled: ', scrob.current_page
     print ''
     print '-----------------------------------------'
     print 'Clan Search: QuickyBaby\'s Special forces'
     print '-----------------------------------------'
-
 
     players = texttable.Texttable(max_width=0)
     players.set_deco(texttable.Texttable.HEADER)
@@ -21,7 +19,9 @@ if __name__ == "__main__":
     players.add_row(['Current Rank', 'Real Rank', 'Name', 'Clan', 'Points', 'Delta', 'Real Delta'])
 
     for x in scrob.find_clan(['qsf', 'qsf-x', 'qsf-c', 'qsf-e']):
-        players.add_row([x['position'], x['real_position'], x['name'], scrob.clans[x['clan']]['tag'].upper(), x['points'], x['delta'], x['real_delta']])
+        players.add_row(
+            [x['position'], x['real_position'], x['name'], scrob.clans[x['clan']]['tag'].upper(), x['points'],
+             x['delta'], x['real_delta']])
 
     print players.draw()
 
@@ -29,7 +29,6 @@ if __name__ == "__main__":
     print '------------------------------------------'
     print 'top clans by number of players in top 10 k'
     print '------------------------------------------'
-
 
     clans = texttable.Texttable(max_width=0)
     clans.set_deco(texttable.Texttable.HEADER)

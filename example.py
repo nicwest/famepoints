@@ -5,6 +5,7 @@ import texttable
 
 if __name__ == "__main__":
     scrob = Scrobbler(max_rank=12000)
+    scrob.build_headers('NA')
     data = scrob.scrobble()
     print 'indexed players: ', str(scrob.current_count) + "/" + str(scrob.total_count) + " (" + str(
         round((float(scrob.current_count) / float(scrob.total_count)) * 100)) + "\%)", 'pages scrobbled: ', scrob.current_page
@@ -18,7 +19,7 @@ if __name__ == "__main__":
     players.set_cols_dtype(['i', 'i', 't', 't', 'i', 'i', 'i'])
     players.add_row(['Current Rank', 'Real Rank', 'Name', 'Clan', 'Points', 'Delta', 'Real Delta'])
 
-    for x in scrob.find_clan(['qsf', 'qsf-x', 'qsf-c', 'qsf-e']):
+    for x in scrob.find_clan(['otter']):
         players.add_row(
             [x['position'], x['real_position'], x['name'], scrob.clans[x['clan']]['tag'].upper(), x['points'],
              x['delta'], x['real_delta']])

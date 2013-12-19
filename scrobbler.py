@@ -12,7 +12,6 @@ class Scrobbler(object):
         self.max_rank = max_rank
         self.max_players = max_players
 
-        self.target = "http://worldoftanks.eu/clanwars/eventmap/alley/ratings/"
         self.current_page = 0
         self.page_size = 1000
 
@@ -24,20 +23,33 @@ class Scrobbler(object):
         self.ranking = []
         self.clanranking = []
 
+        self.servers = {
+            'NA': 'com',
+            'EU': 'eu',
+            'RU': 'ru',
+            'ASIA': 'asia',
+            'KR': 'kr'
+        }
+
+
+
+    def build_headers(self, server):
+        self.target = "http://worldoftanks."+self.servers[server]+"/clanwars/eventmap/alley/ratings/"
         self.opener = urllib2.build_opener()
         self.opener.addheaders = [
             ("Accept", "application/json, text/javascript, */*; q=0.01"),
             ("Accept-Encoding", "gzip,deflate,sdch"),
             ("Accept-Language", "en-GB,en-US;q=0.8,en;q=0.6"),
-            ("Cache-Control", "no-cache"),
-            ("Host", "worldoftanks.eu"),
-            ("Pragma", "no-cache"),
-            ("Referer", "http://worldoftanks.eu/clanwars/eventmap/alley/"),
+            ("Host", "worldoftanks."+self.servers[server]),
+            ("Referer", "http://worldoftanks."+self.servers[server]+"/clanwars/eventmap/alley/"),
             ("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36"),
+            # ("Cache-Control", "no-cache"),
+            # ("Pragma", "no-cache"),
             ("X-Requested-With", "XMLHttpRequest")
         ]
 
     def scrobble_single(self):
+        # print self.target + "?page=" + str(self.current_page) + "&page_size=" + str(self.page_size)
         try:
             page = self.opener.open(self.target + "?page=" + str(self.current_page) + "&page_size=" + str(self.page_size))
         except():
